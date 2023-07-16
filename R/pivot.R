@@ -11,14 +11,23 @@
 #' library(dplyr)
 #' library(purrr)
 #' library(ggplot2)
+#' hogwarts %>%
+#'   pivot(row = "hour", col = "wday", 
+#'         value = c("subject", "teacher", "room"), 
+#'         split = c("house", "grade"))
+#' hogwarts %>%
+#'   pivot(row = "hour", col = "wday", 
+#'         value = c("subject", "room", "house", "grade"), 
+#'         split = c("teacher"))
 #' starwars %>%
 #'   pivot(row = "homeworld", col = "species", value = "name", split = "sex")
 #' msleep %>%
 #'   pivot(row = "vore", col = "conservation", value = "name") %>%
 #'   na2empty() %>%
 #'   print(n = nrow(.))
-#' as_tibble(Titanic) %>%
-#'   pivot(row = "Age", col = c("Sex", "Survived"), value = "n", split = "Class")
+#' tibble::as_tibble(Titanic) %>%
+#'   pivot(row = "Age", col = c("Sex", "Survived"), 
+#'         value = "n", split = "Class")
 #' diamonds %>%
 #'   pivot(row = "cut", col = "color", value = "price", split = "clarity")
 #' 
@@ -93,6 +102,7 @@ split_force <- function(df, split){
   if(is.null(split)){
     df <- base::split(df, "")
   }else{
+    split <- split[length(split):1]
     df <- base::split(df, df[split])
   }
   return(df)

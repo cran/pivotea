@@ -10,6 +10,8 @@ library(dplyr)
 library(ggplot2)
 
 ## -----------------------------------------------------------------------------
+hogwarts %>%
+  pivot(row = "hour", col = "wday", value = c("subject", "teacher", "room"), split = c("house", "grade"))
 starwars %>%
   pivot(row = "homeworld", col = "species", value = "name", split = "sex")
 msleep %>%
